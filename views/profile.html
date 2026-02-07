@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Yuji+Boku&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <title>HumIt</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/profile.css" />
+  <link rel="stylesheet" href="/css/trend.css" />
+  <script src="/js/musiceffect.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/profile.js" defer></script>
+</head>
+<body>
+  <nav>
+    <h1 id="brand">HumiT</h1>
+    <ul>
+      <li><img class="modetoggle" id="modetoggle" src="/images/light.png"></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="/trending">Trending</a></li>
+      <li id="auth-link"></li>
+    </ul>
+  </nav>
+  <div class="profile-card">
+      <div class="profile">
+        <h1>Welcome</h1>
+        <h1>Back</h1>
+        <h2>Krishna Myaka</h2>
+        <div id="aboutwrap">
+            <a>About me</a>
+            <button><i class="fa fa-pencil"></i></button>
+        </div>
+        <textarea></textarea>
+      </div>
+      <div class="library">
+        <h1>Library</h1>
+        <h2>Playlists</h2>
+        <div class="playlists">
+          <div id="playlistCards" class="gridbase"></div>
+        </div>
+        <h2>Songs</h2>
+        <div class="songs">
+          <div id="likedCards" class="gridbase"></div>
+        </div>
+    </div>
+  </div>
+  <div id="musiceffect"></div>
+</body>
+</html>

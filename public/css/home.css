@@ -1,0 +1,45 @@
+.mic img{
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.mic img:hover{
+  transform: scale(1);
+}
+.mic img.recording{
+  animation: pulse 1.2s infinite;
+}
+@keyframes pulse{
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(0.8); }
+}
+.mic{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  background-color: var(--red1);
+  border-radius: 50%;
+  transition: 0.3s;
+  border: 5px solid rgba(225, 6, 0, 0.9);
+}
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.mic:hover{
+  border: 10px solid rgba(225, 6, 0, 0.6);
+  background-color: var(--red2);
+  box-shadow: 0 0 15px var(--red1);
+  transition: 0.3s;
+} 
+#recStatus{
+  color: var(--white);
+}

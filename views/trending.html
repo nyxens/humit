@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Yuji+Boku&display=swap" rel="stylesheet">
+  <title>HumIt</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/trend.css" />
+  <script src="/js/musiceffect.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/trend.js" defer></script>
+</head>
+<body>
+  <nav>
+    <h1 id="brand">HumiT</h1>
+    <div class="navsearch">
+      <input id="navsearchinput" type="text" placeholder="Search songs..." autocomplete="off" />
+      <button id="navsearchbtn" type="button"><img src="/images/search.png"></button>
+    </div>
+    <ul>
+      <li><img class="modetoggle" id="modetoggle" src="/images/light.png"></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="/trending">Trending</a></li>
+      <li id="auth-link"></li>
+    </ul>
+  </nav>
+  <div id="searchresults"></div>
+  <div class="gridbase" id="grid"></div>
+  <div id="musiceffect"></div>
+</body>
+</html>

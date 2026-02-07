@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Yuji+Boku&display=swap" rel="stylesheet">
+  <title>HumIt</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/home.css" />
+  <script src="/js/listen.js" defer></script>
+  <script src="/js/musiceffect.js" defer></script>
+  <script src="/js/main.js" defer></script>
+</head>
+<body>
+  <nav>
+    <h1 id="brand">HumiT</h1>
+    <ul>
+      <li><img class="modetoggle" id="modetoggle" src="/images/light.png" /></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="/trending">Trending</a></li>
+      <li id="auth-link"></li>
+    </ul>
+  </nav>
+  <div class="wrapper">
+    <div class="mic">
+      <img id="micBtn" src="/images/mic.svg" alt="Record" />
+    </div>
+    <p id="recStatus">Tap to listen</p>
+  </div>
+  <div id="musiceffect"></div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+:root,
+  :root.dark{
+  --black1:#000000;
+  --black2:#0e0e0f;
+  --black3:#0b0b0d;
+  --black4:#1b1b1b;
+  --dark:#0f0f10;
+  --dark2:#141417;
+  --red1:#C10206;
+  --red2:#A50113 ;
+  --white:#FFFBF2;
+  --gray:#DFE2DB;
+  --gray2:#333;
+  }
+  :root.light{
+  --black1:#FFFFFF;
+  --black2:#babbbc;
+  --black3:#f4f4f4;
+  --black4:#b1b1b1;
+  --dark:#FFFFFF;
+  --dark2:#F1F3F6;
+  --red2:#d7292c;
+  --red1:#ee142d;
+  --white:#161616;
+  --gray:#3A3F45;
+  --gray2:#C9CED6; 
+  }
+html{ 
+  overflow-y: scroll;
+  scrollbar-width: thin; 
+}
+*{
+  user-select: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+body{
+  height: 700px;
+  background: var(--black3);
+  color: var(--white);
+}
+/* nav starts */
+nav{
+  position: sticky;
+  width: 100%;
+  top:0;
+  z-index: 9999; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 25px;
+  background: var(--black1);
+}
+.yuji-boku-regular {
+  font-family: "Yuji Boku", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+nav h1{
+  font-family: "Yuji Boku";
+  color: var(--red1);
+}
+.modetoggle{
+  height: 25px;
+  cursor: pointer;
+}
+nav ul{
+  display: flex;
+  list-style: none;
+  gap: 35px;
+}
+nav ul li a{
+  text-decoration: none;
+  color: var(--white);
+  transition: 0.3s;
+}
+nav ul li a:active {
+  color: var(--red1);
+  transition: 0.3s;
+}
+#musiceffect {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+.musicnote {
+  position: absolute;
+  color:var(--red1);
+  font-size: 20px;
+  opacity: 0;
+  animation: floatFade 2.5s ease-out forwards;
+  text-shadow: 0 0 6px rgba(225, 6, 0, 0.8);
+}
+@keyframes floatFade {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-60px) scale(1.2);
+    opacity: 0;
+  }
+}

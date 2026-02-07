@@ -1,0 +1,81 @@
+.logincard{
+  position: relative;
+  top: 150px;
+  max-width:450px;
+  display: flex;
+  align-items: center;
+  flex-direction:column ;
+  margin: auto;
+  background-color: var(--dark3);
+  border: 1px solid var(--black4);
+  border-radius: 18px;
+  gap:15px;
+  transition: 0.3s;
+}
+.logincard:hover{
+  transform: translateY(-6px);
+  border-color: rgba(225, 6, 0, 0.6);  
+  box-shadow: 0 0 25px rgba(225, 6, 0, 0.18);
+}
+.logincard h2{
+  margin-top:30px;
+  align-self:self-start;
+  margin-left:40px;
+  margin-bottom: 5px;
+}
+.logincard input{
+  width: 85%;
+  padding: 15px;
+  background: var(--black1);
+  border: 1px solid var(--black2);
+  color:var(--white);
+  border-radius: 8px;
+}
+.wrapper1{
+  width: 85%; 
+  display: inline-block;
+}
+#wrapper2{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+#sign{
+  margin-right: 37px;
+  margin-top: 30px;
+  color: var(--red1);
+  text-decoration: none;
+}
+#sign:hover{
+  margin-right: 37px;
+  margin-top: 30px;
+  color: var(--red2);
+  text-decoration: none;
+}
+#password{
+  width: 100%;
+}
+.toggle{
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  right : 46px;
+  bottom: 104px;
+}
+.logincard button {
+  width: 50%;
+  background: var(--red2);
+  border: none;
+  color: var(--white);
+  padding: 14px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+button:hover {
+  opacity: 0.85;
+}
