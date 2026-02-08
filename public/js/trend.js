@@ -79,7 +79,7 @@ function wirePlaylistButtons(scope) {
       const menu = wrap.querySelector(".plmenu");
       document.querySelectorAll(".plmenu.open")
         .forEach(m => m.classList.remove("open"));
-      const res = await fetch("/api/playlists/me");
+      const res = await fetch("/api/playlists/me1");
       const playlists = await res.json();
       renderPlaylistMenu(menu, playlists, songId);
       menu.classList.toggle("open");

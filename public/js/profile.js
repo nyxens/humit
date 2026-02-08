@@ -43,7 +43,7 @@ async function renderLikedSongs() {
 async function renderPlaylists() {
   if (!playlistWrap) return;
   playlistWrap.innerHTML = "";
-  const res = await fetch("/api/playlists/me");
+  const res = await fetch("/api/playlists/me1");
   if (!res.ok) {
     playlistWrap.innerHTML = `<p>Failed to load playlists.</p>`;
     return;
