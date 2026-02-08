@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+//simple collection for likex`
 const LikeSchema = new mongoose.Schema({
   userId: {
     type: String,

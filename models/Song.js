@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+//same schema as mdb document | collection
 const SongSchema = new mongoose.Schema({
   _id: {
     type: String

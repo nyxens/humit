@@ -2,6 +2,8 @@ const express = require("express");
 const Like = require("../models/Like");
 const requireAuth = require("../middleware/requireAuth");
 const router = express.Router();
+//liking functionality for db
+//requireauth checks for login before validating
 router.post("/:songId", requireAuth, async (req, res) => {
   const { songId } = req.params;
   const userId = req.session.userId;
@@ -15,13 +17,14 @@ router.post("/:songId", requireAuth, async (req, res) => {
     res.status(500).json({ error: "Failed to like song" });
   }
 });
+//unlike from dm
 router.delete("/:songId", requireAuth, async (req, res) => {
   const { songId } = req.params;
   const userId = req.session.userId;
   await Like.deleteOne({ userId, songId });
   res.json({ liked: false });
 });
-
+//liked songs get from db
 router.get("/me", requireAuth, async (req, res) => {
   const userId = req.session.userId;
   const likes = await Like.find({ userId }).lean();

@@ -1,3 +1,4 @@
+//to show and hide eye icon
 const password = document.getElementById("password");
 const toggle = document.getElementById("toggle");
 const login = document.getElementById("login");

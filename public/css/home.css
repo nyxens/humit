@@ -1,3 +1,6 @@
+html{ 
+  overflow-y:auto;
+}
 .mic img{
   width: 80px;
   height: 80px;

@@ -2,7 +2,9 @@ const express = require("express");
 const Playlist = require("../models/Playlist");
 const requireAuth = require("../middleware/requireAuth");
 const router = express.Router();
-
+// similar to likes just diiferent error status
+//create playlists 
+//TODO for now only fav playlists exist reate in db or api request 
 router.post("/", requireAuth, async (req, res) => {
   const userId = req.session.userId;
   const { name } = req.body;
@@ -23,11 +25,13 @@ router.post("/", requireAuth, async (req, res) => {
     res.status(500).json({ error: "Failed to create playlist" });
   }
 });
-router.get("/me", requireAuth, async (req, res) => {
+// /me is taken by likes so use me1 to get list of playlists 
+router.get("/me1", requireAuth, async (req, res) => {
   const userId = req.session.userId;
   const playlists = await Playlist.find({ userId }).lean();
   res.json(playlists);
 });
+//add songs to playlist 
 router.post("/:playlistId/add/:songId", requireAuth, async (req, res) => {
   const { playlistId, songId } = req.params;
   const userId = req.session.userId;
@@ -41,6 +45,7 @@ router.post("/:playlistId/add/:songId", requireAuth, async (req, res) => {
   }
   res.json({ added: true });
 });
+//remove songs from playlist
 router.delete("/:playlistId/remove/:songId", requireAuth, async (req, res) => {
   const { playlistId, songId } = req.params;
   const userId = req.session.userId;

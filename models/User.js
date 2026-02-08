@@ -33,5 +33,6 @@ const UserSchema = new mongoose.Schema({
 }, {
   collection: "users",
   _id: false
+  //could add timespamps later TODO
 });
 module.exports = mongoose.model("User", UserSchema);

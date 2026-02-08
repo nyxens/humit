@@ -1,3 +1,6 @@
+html{ 
+  overflow-y:auto;
+}
 .profile-card{
   margin: 20px;
   padding-left: 10px;

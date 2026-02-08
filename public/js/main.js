@@ -1,3 +1,4 @@
+//toggle theme 
 const mode = document.getElementById("modetoggle");
 const setTheme = (theme) => {
   document.documentElement.classList.remove("dark", "light");
@@ -9,7 +10,7 @@ const setTheme = (theme) => {
 };
 document.addEventListener("DOMContentLoaded", () => {
   highlightActiveNav();
-  const savedTheme = localStorage.getItem("theme") || "dark";
+  const savedTheme = localStorage.getItem("theme") || "dark";//default to dark i think
   setTheme(savedTheme);
   if (mode) {
     mode.addEventListener("click", () => {
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+//displays current tab in navigation
 function highlightActiveNav() {
   const links = document.querySelectorAll("nav a");
   links.forEach(link => {
@@ -26,6 +28,7 @@ function highlightActiveNav() {
     }
   });
 }
+//brand logo click to root
 const logo = document.getElementById("brand");
 if (logo) {
     logo.style.cursor = "pointer";
@@ -33,9 +36,11 @@ if (logo) {
         window.location.href = "/";
     });
 }
+//logout here
 document.addEventListener("DOMContentLoaded", async () => {
   const authLink = document.getElementById("auth-link");
-  if (!authLink) return;
+  if (!authLink) 
+    return;
   try {
     const res = await fetch("/auth/status");
     const data = await res.json();
