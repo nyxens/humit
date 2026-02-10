@@ -27,8 +27,12 @@
   <div class="wrapper">
     <div class="mic">
       <img id="micBtn" src="/images/mic.svg" alt="Record" />
+      <span id="micPulse"></span>
     </div>
     <p id="recStatus">Tap to listen</p>
+    <div class="wave-wrap">
+      <canvas id="waveCanvas" width="500" height="120"></canvas>
+    </div>
   </div>
   <div id="musiceffect"></div>
 </body>

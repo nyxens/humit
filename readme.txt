@@ -1,5 +1,7 @@
 start server using 
 -> npm run dev
+stop server using
+-> Ctrl+C
 -----------------------------------------------
 sync / update trending songs using 
 -> node scripts/syncTrendingSongs.js
