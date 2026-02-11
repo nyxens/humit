@@ -1,6 +1,8 @@
 let mediaRecorder;
 let audioChunks = [];
 let isRecording = false;
+//credit : https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Visualizations_with_Web_Audio_API
+//web audio api
 let audioCtx;
 let analyser;
 let source;
@@ -10,6 +12,7 @@ const pulseDot = document.getElementById("micPulse");
 const micBtn = document.getElementById("micBtn");
 const statusText = document.getElementById("recStatus");
 const canvas = document.getElementById("waveCanvas");
+//alignment for canvas
 const base = canvas.height / 2;
 const ctx = canvas.getContext("2d");
 micBtn.addEventListener("click", () => {
@@ -20,14 +23,16 @@ micBtn.addEventListener("click", () => {
 });
 async function startRecording(){
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    audioChunks = [];
-    mediaRecorder = new MediaRecorder(stream);
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });//perm
+    audioChunks = [];//clear storage
+    mediaRecorder = new MediaRecorder(stream);//record
     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+
     audioCtx = new window.AudioContext();
     analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 256;
-    analyser.smoothingTimeConstant = 0.85;
+    analyser.fftSize = 256;//frequency reso using fourierT
+    analyser.smoothingTimeConstant = 0.85;//smooth curve
+    
     source = audioCtx.createMediaStreamSource(stream);
     source.connect(analyser);
     dataArray = new Uint8Array(analyser.frequencyBinCount);
@@ -38,7 +43,8 @@ async function startRecording(){
     mediaRecorder.start();
     drawFrequencyBars();
     setTimeout(() => {
-      if (isRecording) stopRecording();
+      if (isRecording) 
+        stopRecording();
     }, 10000);
   } catch (err) {
     console.error("Mic error:", err);
@@ -59,6 +65,7 @@ function stopRecording() {
   if (!mediaRecorder) 
     return;
   mediaRecorder.onstop = () => {
+    //combine chunks to single file
     const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
     cancelAnimationFrame(animationId);
     clearCanvas();
@@ -70,7 +77,9 @@ function stopRecording() {
     console.log("Recorded audio blob:", audioBlob);
     playback(audioBlob);
   };
+  //stop recording
   mediaRecorder.stop();
+  //close processing
   audioCtx.close();
 }
 function drawFrequencyBars() {

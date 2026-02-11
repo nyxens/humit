@@ -12,6 +12,7 @@
   <script src="/js/musiceffect.js" defer></script>
   <script src="/js/main.js" defer></script>
   <script src="/js/showhide.js" defer></script>
+  <script src="/js/validate.js" defer></script>
 </head>
 <body>
   <nav>
@@ -24,15 +25,15 @@
       <li id="auth-link"></li>
     </ul>
   </nav>
-  <form class="logincard" action="/auth/signup" method="POST">
+  <form id="authForm" class="logincard" action="/auth/signup" method="POST">
     <h2>Register</h2>
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="text" name="username" placeholder="Username" required/>
+    <input type="email" id="email" name="email" placeholder="Email" required />
+    <input type="text" id="username" name="username" placeholder="Username" required/>
     <div class="wrapper1">
       <input id="password" type="password" name="password" placeholder="Password" required/>
       <img class="toggle" id="toggle" src="/images/show.png" />
     </div>
-    <button type="submit" id="login">Submit</button>
+    <button type="submit">Submit</button>
   </form>
   <div id="musiceffect"></div>
 </body>

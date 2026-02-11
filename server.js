@@ -21,11 +21,12 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected DB Humit"))
   .catch(err => console.log(err));
 
-  //api call checklist 
+//api call checklist 
 app.use("/auth", require("./routes/auth"));
 app.use("/api/songs", require("./routes/songs"));
 app.use("/api/likes", require("./routes/likes"));
 app.use("/api/playlists", require("./routes/playlists"));
+app.use("/api/user", require("./routes/user"));
 
 //navigation
 const path = require("path");

@@ -1,8 +1,23 @@
 const playlistWrap = document.getElementById("playlistCards");
 const likedWrap = document.getElementById("likedCards");
+const usernameEl = document.getElementById("profileUsername");
+const aboutBtn = document.getElementById("aboutBtn");
+const aboutInput = document.getElementById("aboutInput");
+let isEditing = false;
 document.addEventListener("DOMContentLoaded", () => {
+  loadProfile();
   renderLibrary();
 });
+async function loadProfile() {
+  const res = await fetch("/api/user/me");
+  if (!res.ok) {
+    usernameEl.textContent = "User";
+    return;
+  }
+  const user = await res.json();
+  usernameEl.textContent = user.username;
+  aboutInput.value = user.about || "";
+}
 async function renderLibrary() {
   await renderPlaylists();
   await renderLikedSongs();
@@ -110,6 +125,30 @@ async function renderPlaylists() {
     playlistWrap.appendChild(card);
   });
 }
+aboutBtn.addEventListener("click", async () => {
+  if (!isEditing) {
+    isEditing = true;
+    aboutInput.disabled = false;
+    aboutInput.focus();
+    aboutBtn.innerHTML = `<i class="fa fa-save"></i>`;
+  } 
+  else {
+    const res = await fetch("/api/user/me", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        about: aboutInput.value
+      })
+    });
+    if (res.ok) {
+      isEditing = false;
+      aboutInput.disabled = true;
+      aboutBtn.innerHTML = `<i class="fa fa-pencil"></i>`;
+    }
+  }
+});
 function escapeHtml(str) {
   return String(str)
     .replaceAll("&", "&amp;")
