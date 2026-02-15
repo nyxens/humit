@@ -27,7 +27,7 @@ app.use("/api/songs", require("./routes/songs"));
 app.use("/api/likes", require("./routes/likes"));
 app.use("/api/playlists", require("./routes/playlists"));
 app.use("/api/user", require("./routes/user"));
-
+app.use("/api/recognize",require("./routes/recognize"));
 //navigation
 const path = require("path");
 app.get("/", (req, res) => {

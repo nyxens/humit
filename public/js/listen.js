@@ -75,7 +75,7 @@ function stopRecording() {
     statusText.textContent = "Audio captured";
     isRecording = false;
     console.log("Recorded audio blob:", audioBlob);
-    playback(audioBlob);
+    recognize(audioBlob);
   };
   //stop recording
   mediaRecorder.stop();
@@ -108,9 +108,18 @@ function drawFrequencyBars() {
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
-function playback(blob) {
-  const url = URL.createObjectURL(blob);
-  const audio = new Audio(url);
-  audio.volume = 0.5;
-  audio.play();
+async function recognize(blob) {
+  const formData = new FormData();
+  formData.append("audio", blob);
+  const res = await fetch("/api/recognize", {
+    method: "POST",
+    body: formData
+  });
+  const result = await res.json();
+  if (!result.match) {
+    statusText.textContent = "No match found.";
+  } else {
+    statusText.textContent =
+      `${result.match.title} - ${result.match.artist}`;
+  }
 }
