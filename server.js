@@ -2,8 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
-
 const app = express();
+app.set("view engine", "ejs");
+app.set("views", "views");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -45,7 +46,26 @@ app.get("/profile", (req, res) => {
 app.get("/trending", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "trending.html"));
 });
+app.get("/error", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "error.html"));
+});
+//error
+app.use((req, res) => {
+  res.status(404).render("error", {
+    status: 404,
+    message: "Page not found"
+  });
+});
+app.use((err, req, res, next) => {
+  console.error(err);
 
+  const status = err.status || 500;
+
+  res.status(status).render("error", {
+    status: status,
+    message: err.message || "Something went wrong"
+  });
+});
 //check your session info 
 app.get("/debugsession", (req, res) => {
   res.json({
@@ -53,6 +73,7 @@ app.get("/debugsession", (req, res) => {
     loggedIn: !!req.session.userId
   });
 });
+
 //port
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");

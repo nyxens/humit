@@ -1,0 +1,32 @@
+html{ 
+  overflow-y: hidden;
+}
+.error-card{
+  position: relative;
+  top: 240px;
+  width:400px;
+  height: 300px;
+  display: flex;
+  align-items : center;
+  justify-content: center;
+  flex-direction:column ;
+  margin: auto;
+  background-color: var(--dark3);
+  border: 1px solid var(--black4);
+  border-radius: 18px;
+  gap:45px;
+  transition: 0.3s;
+}
+.error-card:hover{
+  transform: translateY(-6px);
+  border-color: rgba(225, 6, 0, 0.6);  
+  box-shadow: 0 0 25px rgba(225, 6, 0, 0.18);
+}
+h1{
+  font-size: 55px;
+  color: var(--red2);
+}
+p{
+  font-size: 20px;
+  color: var(--gray);
+}
