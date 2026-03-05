@@ -23,34 +23,84 @@ micBtn.addEventListener("click", () => {
 });
 async function startRecording(){
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });//perm
-    audioChunks = [];//clear storage
-    mediaRecorder = new MediaRecorder(stream);//record
+
+    const displayStream = await navigator.mediaDevices.getDisplayMedia({
+      video: true,
+      audio: true
+    });
+
+    const audioTracks = displayStream.getAudioTracks();
+
+    if (!audioTracks.length) {
+      alert("Select a tab and enable 'Share tab audio'");
+      return;
+    }
+
+    const stream = new MediaStream([audioTracks[0]]);
+
+    audioChunks = [];
+    mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
 
     audioCtx = new window.AudioContext();
     analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 256;//frequency reso using fourierT
-    analyser.smoothingTimeConstant = 0.85;//smooth curve
-    
+    analyser.fftSize = 256;
+    analyser.smoothingTimeConstant = 0.85;
+
     source = audioCtx.createMediaStreamSource(stream);
     source.connect(analyser);
+
     dataArray = new Uint8Array(analyser.frequencyBinCount);
+
     isRecording = true;
     micBtn.src = "images/recording.svg";
     pulseDot.classList.add("active");
     statusText.textContent = "Listening…";
+
     mediaRecorder.start();
     drawFrequencyBars();
+
     setTimeout(() => {
-      if (isRecording) 
+      if (isRecording)
         stopRecording();
     }, 10000);
+
   } catch (err) {
-    console.error("Mic error:", err);
-    statusText.textContent = "Microphone access denied";
+    console.error("Capture error:", err);
+    statusText.textContent = "System audio capture denied";
   }
 }
+
+// async function startRecording(){
+//   try {
+//     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });//perm
+//     audioChunks = [];//clear storage
+//     mediaRecorder = new MediaRecorder(stream);//record
+//     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+
+//     audioCtx = new window.AudioContext();
+//     analyser = audioCtx.createAnalyser();
+//     analyser.fftSize = 256;//frequency reso using fourierT
+//     analyser.smoothingTimeConstant = 0.85;//smooth curve
+    
+//     source = audioCtx.createMediaStreamSource(stream);
+//     source.connect(analyser);
+//     dataArray = new Uint8Array(analyser.frequencyBinCount);
+//     isRecording = true;
+//     micBtn.src = "images/recording.svg";
+//     pulseDot.classList.add("active");
+//     statusText.textContent = "Listening…";
+//     mediaRecorder.start();
+//     drawFrequencyBars();
+//     setTimeout(() => {
+//       if (isRecording) 
+//         stopRecording();
+//     }, 10000);
+//   } catch (err) {
+//     console.error("Mic error:", err);
+//     statusText.textContent = "Microphone access denied";
+//   }
+// }
 function drawBaseline() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();

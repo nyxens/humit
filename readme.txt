@@ -41,5 +41,5 @@ add song to playlist
 -----------------------------------------------
 test account details
 -> email:test@gmail.com
--> pass: 93465
+-> pass: 123456
 -----------------------------------------------
