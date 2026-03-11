@@ -27,7 +27,7 @@
   }
 html{ 
   overflow-y: scroll;
-  scrollbar-width: thin; 
+  scrollbar-width: none; 
 }
 *{
   user-select: none;
@@ -36,6 +36,11 @@ html{
   box-sizing: border-box;
   font-family:"Segoe UI",sans-serif;
 }
+*, *::before, *::after {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
 body{
   height: 700px;
   background: var(--black3);
@@ -52,6 +57,13 @@ nav{
   align-items: center;
   padding: 18px 25px;
   background: var(--black1);
+}
+nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red1), var(--red2), transparent);
 }
 .yuji-boku-regular {
   font-family: "Yuji Boku", serif;

@@ -7,13 +7,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Yuji+Boku&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <title>HumIt</title>
+  <title>HumIt — Profile</title>
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="/css/profile.css" />
-  <link rel="stylesheet" href="/css/trend.css" />
-  <script src="/js/musiceffect.js" defer></script>
-  <script src="/js/main.js" defer></script>
-  <script src="/js/profile.js" defer></script>
 </head>
 <body>
   <nav>
@@ -26,29 +22,57 @@
       <li id="auth-link"></li>
     </ul>
   </nav>
-  <div class="profile-card">
-      <div class="profile">
-        <h1>Welcome</h1>
-        <h1>Back</h1>
-        <h2 id="profileUsername"></h2>
-        <div id="aboutwrap">
-            <a>About me</a>
-            <button id="aboutBtn"><i class="fa fa-pencil"></i></button>
+  <div class="profile-page">
+    <div class="profile-hero" data-letter="✦">
+      <div class="profile-hero-inner">
+        <div class="avatar-ring" id="avatarInitial">J</div>
+        <div class="profile-text">
+          <p class="welcome-label">Welcome back</p>
+          <h1 class="profile-username" id="profileUsername">JohnDoe</h1>
+          <div class="profile-stats">
+            <div class="stat-pill">
+              <span class="stat-num" id="statPlaylists">—</span>
+              <span class="stat-label">Playlists</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-num" id="statLiked">—</span>
+              <span class="stat-label">Liked</span>
+            </div>
+          </div>
         </div>
-        <textarea id="aboutInput" disabled></textarea>
       </div>
-      <div class="library">
-        <h1>Library</h1>
-        <h2>Playlists</h2>
-        <div class="playlists">
-          <div id="playlistCards" class="gridbase"></div>
+    </div>
+    <!-- ── ABOUT BAR ── -->
+    <div class="profile-about-bar">
+      <div class="about-label-block">
+        <span>About me</span>
+        <button id="aboutBtn">✎</button>
+      </div>
+      <textarea id="aboutInput" disabled placeholder="Tell people about yourself…"></textarea>
+    </div>
+    <div class="library-section">
+      <div class="section-heading">
+        <div class="red-bar"></div>
+        <h2>Library</h2>
+      </div>
+      <div class="library-block">
+        <p class="sub-heading">Playlists</p>
+        <div id="playlistCards">
+          <div class="demo-note">Your playlists will appear here</div>
         </div>
-        <h2>Songs</h2>
-        <div class="songs">
-          <div id="likedCards" class="gridbase"></div>
+      </div>
+      <div class="library-block">
+        <p class="sub-heading">Liked Songs</p>
+        <div id="likedCards">
+          <div class="demo-note" style="min-width:300px">Your liked songs will appear here</div>
         </div>
+      </div>
+
     </div>
   </div>
   <div id="musiceffect"></div>
+  <script src="/js/musiceffect.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/profile.js" defer></script>
 </body>
 </html>

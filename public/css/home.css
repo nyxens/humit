@@ -68,3 +68,24 @@ html{
   display: flex;
   justify-content: center;
 }
+.profile-hero {
+  height: 100%;
+  position: relative;
+  padding: 56px 48px 40px;
+  background: var(--black1);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.profile-hero::before {
+  content: attr(data-letter);
+  position: absolute;
+  right: -10px; top: -30px;
+  font-family: "Yuji Boku", serif;
+  font-size: 260px;
+  color: var(--red1);
+  opacity: 0.04;
+  pointer-events: none;
+  line-height: 1;
+  user-select: none;
+}

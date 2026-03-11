@@ -40,6 +40,7 @@
   position: relative;
   margin: 20px;
   display: grid;
+  background: var(--black1);
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 25px;
 }
@@ -250,4 +251,14 @@ audio::-webkit-media-controls-panel {
   padding-right: 20px;
   margin-left: 80px;
   align-self: center;
+}
+nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red1), var(--red2), transparent);
+}
+body{
+  background-color: var(--black1);
 }
