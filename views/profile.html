@@ -56,7 +56,15 @@
         <h2>Library</h2>
       </div>
       <div class="library-block">
-        <p class="sub-heading">Playlists</p>
+        <div class="playlist-section-top">
+          <p class="sub-heading">Playlists</p>
+          <button id="createPlaylistBtn">+ New</button>
+        </div>
+        <div id="createPlaylistForm" style="display:none;">
+          <input id="newPlaylistName" type="text" placeholder="Playlist name..." maxlength="40" autocomplete="off" />
+          <button id="confirmCreateBtn">✔</button>
+          <button id="cancelCreateBtn">✕</button>
+        </div>
         <div id="playlistCards">
           <div class="demo-note">Your playlists will appear here</div>
         </div>
@@ -71,7 +79,7 @@
     </div>
   </div>
   <div id="musiceffect"></div>
-  <script src="/js/musiceffect.js" defer></script>
+  <!-- <script src="/js/musiceffect.js" defer></script> -->
   <script src="/js/main.js" defer></script>
   <script src="/js/profile.js" defer></script>
 </body>

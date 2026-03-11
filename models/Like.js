@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-//simple collection for likex`
+//simple collection for likes
 const LikeSchema = new mongoose.Schema({
   userId: {
     type: String,

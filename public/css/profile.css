@@ -377,7 +377,114 @@ html {
   text-overflow: ellipsis;
   margin-top: 2px;
 }
+/* playlist section heading row */
+.playlist-section-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.playlist-section-top .sub-heading {
+  margin-bottom: 0;
+}
+#createPlaylistBtn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(193,2,6,0.4);
+  color: var(--red1);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+#createPlaylistBtn:hover {
+  background: var(--red1);
+  color: var(--white);
+}
 
+/* create form inline */
+#createPlaylistForm {
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+#newPlaylistName {
+  flex: 1;
+  background: var(--dark2);
+  border: 1px solid rgba(193,2,6,0.35);
+  border-radius: 8px;
+  padding: 8px 14px;
+  color: var(--white);
+  font-size: 13px;
+  outline: none;
+}
+#newPlaylistName:focus {
+  border-color: var(--red1);
+}
+#confirmCreateBtn, #cancelCreateBtn {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  transition: opacity 0.2s;
+}
+#confirmCreateBtn {
+  background: var(--red1);
+  color: var(--white);
+}
+#cancelCreateBtn {
+  background: var(--dark2);
+  color: rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+#confirmCreateBtn:hover, #cancelCreateBtn:hover { opacity: 0.8; }
+
+/* delete button inside playlist card */
+.playlist-top-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.playlist-delete-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.3);
+  border-radius: 6px;
+  width: 24px; height: 24px;
+  font-size: 11px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+}
+.playlist-delete-btn:hover {
+  background: rgba(193,2,6,0.15);
+  border-color: var(--red1);
+  color: var(--red1);
+}
+.song-remove-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.3);
+  border-radius: 6px;
+  width: 24px; height: 24px;
+  font-size: 11px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+}
+.song-remove-btn:hover {
+  background: rgba(193,2,6,0.15);
+  border-color: var(--red1);
+  color: var(--red1);
+}
 /* ═══════════════════════════════
    LIKED SONG CARDS — redesigned
 ═══════════════════════════════ */

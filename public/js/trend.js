@@ -120,32 +120,36 @@ document.addEventListener("click", () => {
     .forEach(m => m.classList.remove("open"));
 });
 let currentAudio = null;
+let currentBtn = null;
 function wirePlayButtons(scope) {
   scope.querySelectorAll(".playbtn").forEach(btn => {
     btn.addEventListener("click", async (e) => {
       e.stopPropagation();
       const songDbId = btn.dataset.id;
       const itunesId = songDbId.replace("song_itunes_", "");
-      if (!/^\d+$/.test(itunesId)) 
-        return;
+      if (!/^\d+$/.test(itunesId)) return;
+
       let audio = btn._audio;
       if (!audio) {
         const res = await fetch(`https://itunes.apple.com/lookup?id=${itunesId}`);
         const data = await res.json();
         const previewUrl = data.results?.[0]?.previewUrl;
-        if (!previewUrl) {
-          btn.textContent = "×";
-          return;
-        }
+        if (!previewUrl) { btn.textContent = "×"; return; }
         audio = new Audio(previewUrl);
         audio.volume = 0.6;
         btn._audio = audio;
       }
+
+      // pause previous and reset its icon
       if (currentAudio && currentAudio !== audio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
+        if (currentBtn) currentBtn.textContent = "▶";
       }
+
       currentAudio = audio;
+      currentBtn = btn;
+
       if (audio.paused) {
         await audio.play();
         btn.textContent = "⏸";
@@ -153,7 +157,12 @@ function wirePlayButtons(scope) {
         audio.pause();
         btn.textContent = "▶";
       }
-      audio.onended = () => (btn.textContent = "▶");
+
+      audio.onended = () => {
+        btn.textContent = "▶";
+        currentAudio = null;
+        currentBtn = null;
+      };
     });
   });
 }

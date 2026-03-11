@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
+const Playlist = require("../models/Playlist");
 const router = express.Router();
 //navigate through url /signup page
 router.post("/signup", async (req, res) => {
@@ -14,6 +15,11 @@ router.post("/signup", async (req, res) => {
       email,
       passwordHash,
       createdAt: new Date()
+    });
+    await Playlist.create({//default playlist create
+      _id: "pl_fav_" + user._id,
+      userId: user._id,
+      name: "Favourites"
     });
     req.session.userId = user._id;
     res.redirect("/login");

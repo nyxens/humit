@@ -4,7 +4,6 @@ const requireAuth = require("../middleware/requireAuth");
 const router = express.Router();
 // similar to likes just diiferent error status
 //create playlists 
-//TODO for now only fav playlists exist reate in db or api request 
 router.post("/", requireAuth, async (req, res) => {
   const userId = req.session.userId;
   const { name } = req.body;
@@ -56,5 +55,21 @@ router.delete("/:playlistId/remove/:songId", requireAuth, async (req, res) => {
   playlist.songIds = playlist.songIds.filter(id => id !== songId);
   await playlist.save();
   res.json({ removed: true });
+});
+//delete playlists except fav
+// delete entire playlist — Favourites is protected
+router.delete("/:playlistId", requireAuth, async (req, res) => {
+  const { playlistId } = req.params;
+  const userId = req.session.userId;
+
+  // prevent deleting the auto-created Favourites
+  if (playlistId === "pl_fav_" + userId)
+    return res.status(403).json({ error: "Cannot delete Favourites" });
+
+  const result = await Playlist.deleteOne({ _id: playlistId, userId });
+  if (result.deletedCount === 0)
+    return res.status(404).json({ error: "Playlist not found" });
+
+  res.json({ deleted: true });
 });
 module.exports = router;
