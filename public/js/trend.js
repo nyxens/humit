@@ -2,6 +2,11 @@ const grid = document.getElementById("grid");
 const resultsWrap = document.getElementById("searchresults");
 const navSearchInput = document.getElementById("navsearchinput");
 const navSearchBtn = document.getElementById("navsearchbtn");
+// check login once on load
+let userLoggedIn = false;
+fetch("/auth/status")
+  .then(r => r.json())
+  .then(d => { userLoggedIn = d.loggedIn; });
 async function fetchTrendingSongs() {
   try {
     const res = await fetch("/api/songs/trending");
@@ -58,6 +63,10 @@ function wireLikeButtons(scope) {
   scope.querySelectorAll(".likebtn").forEach(btn => {
     btn.addEventListener("click", async (e) => {
       e.stopPropagation();
+      if (!userLoggedIn) {
+        showAuthToast();
+        return;
+      }
       const songId = btn.dataset.id;
       const liked = btn.classList.toggle("liked");
       if (liked) 
@@ -70,10 +79,25 @@ function wireLikeButtons(scope) {
     });
   });
 }
+function showAuthToast() {
+  let toast = document.getElementById("authToast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "authToast";
+    toast.textContent = "Please log in first";
+    document.body.appendChild(toast);
+  }
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2500);
+}
 function wirePlaylistButtons(scope) {
   scope.querySelectorAll(".plbtn").forEach(btn => {
     btn.addEventListener("click", async (e) => {
       e.stopPropagation();
+      if (!userLoggedIn) {
+        showAuthToast();
+        return;
+      }
       const songId = btn.dataset.id;
       const wrap = btn.closest(".plwrap");
       const menu = wrap.querySelector(".plmenu");

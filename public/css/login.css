@@ -79,3 +79,6 @@
 button:hover {
   opacity: 0.85;
 }
+body{
+  background-color: var(--black1);
+}

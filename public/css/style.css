@@ -120,3 +120,24 @@ nav ul li a:active {
     opacity: 0;
   }
 }
+#authToast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--dark2);
+  border: 1px solid rgba(193,2,6,0.4);
+  color: var(--white);
+  font-size: 13px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 9999;
+}
+
+#authToast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
