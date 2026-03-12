@@ -50,7 +50,7 @@ html {
   border: 2.5px solid var(--red1);
   display: grid; place-items: center;
   box-shadow: 0 0 30px rgba(193,2,6,0.25);
-  font-family: "Yuji Boku", serif;
+  font-family:'Inter', sans-serif;
   font-size: 38px;
   color: var(--red1);
   text-transform: uppercase;
