@@ -1,56 +1,77 @@
-.navsearch{
-  display:flex;
-  gap:10px;
-  align-items:center;
+/* ── trend.css ── */
+
+body {
+  background-color: var(--black1);
 }
-.navsearch input{
+
+nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red1), var(--red2), transparent);
+}
+
+/* ═══════════════════════════════
+   NAV SEARCH
+═══════════════════════════════ */
+.navsearch {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.navsearch input {
   width: min(360px, 70vw);
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-radius: 999px;
-  border: 1px solid var(--dark2);
+  border: 1px solid rgba(255,255,255,0.08);
   background: var(--black3);
   color: var(--white);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-.navsearch input:focus{
-  border-color: rgba(225,6,0,0.7);
-  box-shadow: 0 0 0 3px rgba(225,6,0,0.15);
+.navsearch input:focus {
+  border-color: rgba(193,2,6,0.6);
+  box-shadow: 0 0 0 3px rgba(193,2,6,0.12);
 }
-.navsearch button{
+.navsearch input::placeholder {
+  color: rgba(255,255,255,0.22);
+}
+.navsearch button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 12px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
-  background: var(--red2);
-  border:none;
+  background: var(--red1);
+  border: none;
   color: var(--white);
-  cursor:pointer;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
 }
-.navsearch img{
-  height: 15px;
-}
-.navsearch button:hover{
-  opacity:0.9; 
-}
-#searchresults{
-  padding: 16px 24px 0 24px;
-}
-.gridbase{
+.navsearch button:hover { opacity: 0.85; }
+.navsearch img { height: 15px; }
+
+/* ═══════════════════════════════
+   TRENDING GRID
+═══════════════════════════════ */
+.gridbase {
   position: relative;
   margin: 20px;
   display: grid;
   background: var(--black1);
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 25px;
-}
-#grid{
+  gap: 35px;
   padding-bottom: 20px;
 }
+
 .songcard {
   perspective: 1000px;
   cursor: pointer;
-  margin-bottom: 20px;
   overflow: visible;
 }
 .card-inner {
@@ -60,65 +81,56 @@
   min-height: 260px;
   overflow: visible;
 }
-.card-front{
+.card-front {
   height: 280px;
   position: absolute;
   inset: 0;
   border: 1px solid var(--gray2);
-  backface-visibility: hidden;
   border-radius: 16px;
   overflow: visible;
   background: var(--black3);
   transition: 0.3s;
   padding: 20px;
   display: flex;
-  flex-direction:column;
-  justify-content:space-between;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.card-front:hover{
-  height: 280px;
-  position: absolute;
-  inset: 0;
-  border-radius: 16px;
-  border-color: rgba(225, 6, 0, 0.6);
-  box-shadow: 0 0 25px rgba(225, 6, 0, 0.18);
-  overflow: visible;
+.card-front:hover {
+  border-color: rgba(225,6,0,0.6);
+  box-shadow: 0 0 25px rgba(225,6,0,0.18);
   background: var(--dark2);
-  transition: 0.3s;
 }
-.songimage{
+.songimage {
   align-self: center;
   border-radius: 15px;
   height: 150px;
   width: 150px;
+  object-fit: cover;
 }
-.buttons{
+.buttons {
   display: flex;
   justify-content: space-around;
   margin-top: 10px;
   gap: 10px;
   width: 100%;
 }
-.buttons button{
+.buttons button {
   width: 34px;
   height: 34px;
-  margin-bottom: 5px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(0, 0, 0, 0.053);
+  background: rgba(0,0,0,0.05);
   color: var(--white);
   cursor: pointer;
   display: grid;
   place-items: center;
   backdrop-filter: blur(8px);
 }
-.likebtn.liked{
+.likebtn.liked {
   background: rgba(193,2,6,0.2);
   border: 1px solid rgba(193,2,6,0.7);
 }
-.plwrap{ 
-  position: relative; 
-}
+.plwrap { position: relative; }
 .plmenu {
   position: absolute;
   top: 40px;
@@ -132,133 +144,205 @@
   display: none;
   z-index: 20;
 }
-.plmenu.open {
-  display: block;
-}
-.plitem{
+.plmenu.open { display: block; }
+.plitem {
   display: flex;
   justify-content: space-between;
   padding: 10px 12px;
-  cursor:pointer;
+  cursor: pointer;
   color: var(--white);
   font-size: 13px;
 }
-.plitem:hover{
-  background: rgba(193,2,6,0.12);
-}
-.plaction {
-  font-weight: bolder;
-  padding-bottom: 4px;
-  padding-right: 5px;
-}
-.padd{
-  padding-left: 5px;
-  padding-top: 1px;
-}
+.plitem:hover { background: rgba(193,2,6,0.12); }
+.plaction { font-weight: 700; padding-right: 5px; }
+.padd { padding-left: 5px; padding-top: 1px; }
 .songrank {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  margin-top: 5px;
+  gap: 8px;
 }
-.rank{
-  color: var(--red1);
-}
+.rank { color: var(--red1); font-size: 14px; font-weight: 600; }
 .song {
   display: block;
   max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight:400;
+  font-size: 15px;
+  font-weight: 500;
 }
-.search-card{
-  width: 100%;
-  background:var(--black3);
-  border:1px solid rgba(225, 6, 0, 0.6);
-  border-radius:18px;
-  padding:16px;
-  display:flex;
-  flex-direction: row;
-  justify-content: start;
-  gap:14px;
-  align-items:center;
-  margin-bottom: 5px;
-}
-.search-card img{
-  width:84px;
-  height:84px;
-  border-radius:14px;
-  object-fit:cover;
-}
-.search-meta{
-  flex:1;
-  min-width:0;
-}
-.search-title{
-  font-weight:700;
-  margin-bottom:4px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.search-artist{
-  color:var(--white);
-  margin-bottom:6px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-/* .search-extra{
-  color:var(--white);
-  font-size:13px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-} */
-.empty{
-  width: 100%;
-}
-.search-actions{
-  align-self: flex-end;
-  justify-self: flex-end;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.search-actions a{
-  color: var(--red1);
-  text-decoration:none;
-  font-size:13px;
-}
-.search-actions a:hover{
-  opacity:0.85; 
-}
-.preview-audio{
-  width: 400px;
-  margin-top: 10px;
-}
-audio::-webkit-media-controls-panel {
-  background-color: rgba(0, 0, 0, 0.053);
-}
-/* something went wrong here idk why i wrote this */
-/* .preview-audio {
-  display: none;
-} */
-.open-itune{
+
+/* ═══════════════════════════════
+   SEARCH RESULTS
+═══════════════════════════════ */
+#searchresults {
+  padding: 20px 24px 4px;
   display: flex;
-  justify-content: center;
-  padding-right: 20px;
-  margin-left: 80px;
-  align-self: center;
+  flex-direction: column;
+  gap: 10px;
 }
-nav::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--red1), var(--red2), transparent);
+
+.search-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px 8px;
 }
-body{
-  background-color: var(--black1);
+.search-results-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  font-weight: 600;
+}
+.search-clear-btn {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: rgba(255,255,255,0.35);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  font-family: "Inter", sans-serif;
+}
+.search-clear-btn:hover {
+  border-color: var(--red1);
+  color: var(--red1);
+}
+
+.search-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  background: var(--dark2);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.search-card:hover {
+  border-color: rgba(193,2,6,0.35);
+  background: var(--black3);
+}
+
+/* album art */
+.search-card img {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* text */
+.search-card-info {
+  flex: 1;
+  min-width: 0;
+}
+.search-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+.search-artist {
+  font-size: 13px;
+  color: rgba(255,255,255,0.42);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* actions */
+.search-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.search-preview-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(193,2,6,0.5);
+  background: rgba(193,2,6,0.08);
+  color: var(--red1);
+  font-size: 13px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s, transform 0.15s;
+  flex-shrink: 0;
+}
+.search-preview-btn:hover {
+  background: var(--red1);
+  color: var(--white);
+  transform: scale(1.08);
+}
+.search-preview-btn.playing {
+  background: var(--red1);
+  color: var(--white);
+}
+
+.search-itunes-btn {
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.45);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.search-itunes-btn:hover {
+  border-color: var(--red1);
+  color: var(--red1);
+}
+
+/* no results */
+.search-empty {
+  text-align: center;
+  padding: 32px;
+  color: rgba(255,255,255,0.2);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════
+   AUTH TOAST
+═══════════════════════════════ */
+#authToast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--dark2);
+  border: 1px solid rgba(193,2,6,0.4);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 9999;
+}
+#authToast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
