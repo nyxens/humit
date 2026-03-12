@@ -11,10 +11,10 @@ function createMusicNote() {
 
   note.style.left = `${x}px`;
   note.style.top = `${y}px`;
-  note.style.fontSize = `${18 + Math.random() * 14}px`;
+  note.style.fontSize = `${40 + Math.random() * 14}px`;
   container.appendChild(note);
   setTimeout(() => {
     note.remove();
   }, 2500);
 }
-setInterval(createMusicNote,100);
+setInterval(createMusicNote,300);
