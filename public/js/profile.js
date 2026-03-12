@@ -15,9 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const newPlaylistInput   = document.getElementById("newPlaylistName");
   const confirmCreateBtn   = document.getElementById("confirmCreateBtn");
   const cancelCreateBtn    = document.getElementById("cancelCreateBtn");
+  const historyWrap        = document.getElementById("historyCards");
+  const clearHistoryBtn    = document.getElementById("clearHistoryBtn");
 
   loadProfile();
   renderLibrary();
+  renderHistory();
 
   // ── PROFILE ────────────────────────────────────────
   async function loadProfile() {
@@ -264,6 +267,103 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
+
+  // ── RECOGNITION HISTORY ────────────────────────────
+  async function renderHistory() {
+    if (!historyWrap) return;
+    historyWrap.innerHTML = "";
+
+    const res = await fetch("/api/history/me");
+    if (!res.ok) {
+      historyWrap.innerHTML = `
+        <div class="library-empty error">
+          <span class="empty-icon">✕</span>
+          <span>Failed to load history</span>
+        </div>`;
+      return;
+    }
+
+    const history = await res.json();
+
+    // show/hide clear button
+    if (clearHistoryBtn) {
+      clearHistoryBtn.style.display = history.length > 0 ? "inline-flex" : "none";
+    }
+
+    if (history.length === 0) {
+      historyWrap.innerHTML = `
+        <div class="library-empty">
+          <span class="empty-icon">◎</span>
+          <span>No recognition history yet</span>
+        </div>`;
+      return;
+    }
+
+    history.forEach(entry => renderHistoryEntry(entry));
+  }
+
+  function renderHistoryEntry(entry) {
+    const row = document.createElement("div");
+    row.className = "history-row " + (entry.status === "matched" ? "matched" : "unmatched");
+    row.dataset.id = entry._id;
+
+    const startDate = new Date(entry.startedAt);
+    const dateStr   = startDate.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    const timeStr   = startDate.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+
+    const duration  = entry.endedAt
+      ? Math.round((new Date(entry.endedAt) - startDate) / 1000)
+      : null;
+
+    row.innerHTML = `
+      <div class="history-icon">${entry.status === "matched" ? "♪" : "◎"}</div>
+      <div class="history-meta">
+        ${entry.status === "matched"
+          ? `<div class="history-title">${escapeHtml(entry.matchedTitle || "Unknown")}</div>
+             <div class="history-artist">${escapeHtml(entry.matchedArtist || "")}</div>`
+          : `<div class="history-title no-match">No match found</div>`
+        }
+        <div class="history-time">${dateStr} · ${timeStr}${duration !== null ? ` · ${duration}s` : ""}${entry.confidence != null ? ` · ${Math.round(entry.confidence * 100)}% confidence` : ""}</div>
+      </div>
+      <button class="history-delete-btn" title="Delete entry">✕</button>
+    `;
+
+    row.querySelector(".history-delete-btn").addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const res = await fetch(`/api/history/${entry._id}`, { method: "DELETE" });
+      if (res.ok) {
+        row.remove();
+        // if no more entries show empty state
+        if (historyWrap.children.length === 0) {
+          historyWrap.innerHTML = `
+            <div class="library-empty">
+              <span class="empty-icon">◎</span>
+              <span>No recognition history yet</span>
+            </div>`;
+          if (clearHistoryBtn) clearHistoryBtn.style.display = "none";
+        }
+      }
+    });
+
+    historyWrap.appendChild(row);
+  }
+
+  // clear all history
+  if (clearHistoryBtn) {
+    clearHistoryBtn.addEventListener("click", async () => {
+      if (!confirm("Clear all recognition history?")) return;
+      const res = await fetch("/api/history/me/all", { method: "DELETE" });
+      if (res.ok) {
+        historyWrap.innerHTML = `
+          <div class="library-empty">
+            <span class="empty-icon">◎</span>
+            <span>No recognition history yet</span>
+          </div>`;
+        clearHistoryBtn.style.display = "none";
+      }
+    });
+  }
 
   // ── UTILS ──────────────────────────────────────────
   function escapeHtml(str) {

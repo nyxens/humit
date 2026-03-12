@@ -1,6 +1,7 @@
 let mediaRecorder;
 let audioChunks = [];
 let isRecording = false;
+let sessionStartedAt = null;
 
 let audioCtx, analyser, source, dataArray, animationId;
 
@@ -28,17 +29,6 @@ micBtn.addEventListener("click", () => {
 });
 
 async function startRecording() {
-  // check login first
-  const authRes = await fetch("/auth/status");
-  const authData = await authRes.json();
-  if (!authData.loggedIn) {
-    statusText.textContent = "Login to use this feature";
-    statusText.classList.remove("listening");
-    // shake the mic button as feedback
-    micWrap.style.animation = "shake 0.4s ease";
-    setTimeout(() => micWrap.style.animation = "", 400);
-    return;
-  }
   try {
     const displayStream = await navigator.mediaDevices.getDisplayMedia({
       video: true,
@@ -65,6 +55,7 @@ async function startRecording() {
     dataArray = new Uint8Array(analyser.frequencyBinCount);
 
     isRecording = true;
+    sessionStartedAt = new Date().toISOString();
     micBtn.src = "images/recording.svg";
     micWrap.classList.add("recording");
     pulseDot.classList.add("active");
@@ -97,7 +88,7 @@ function stopRecording() {
     micBtn.src = "images/mic.svg";
     statusText.textContent = "Identifying…";
     isRecording = false;
-    recognize(audioBlob);
+    recognize(audioBlob, sessionStartedAt);
   };
   mediaRecorder.stop();
   audioCtx.close();
@@ -145,9 +136,10 @@ function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-async function recognize(blob) {
+async function recognize(blob, startedAt) {
   const formData = new FormData();
   formData.append("audio", blob);
+  if (startedAt) formData.append("startedAt", startedAt);
   try {
     const res = await fetch("/api/recognize", { method: "POST", body: formData });
     const result = await res.json();

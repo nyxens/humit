@@ -22,13 +22,16 @@
       <li id="auth-link"></li>
     </ul>
   </nav>
+
   <div class="profile-page">
+
+    <!-- ── HERO ── -->
     <div class="profile-hero" data-letter="✦">
       <div class="profile-hero-inner">
-        <div class="avatar-ring" id="avatarInitial">J</div>
+        <div class="avatar-ring" id="avatarInitial">?</div>
         <div class="profile-text">
           <p class="welcome-label">Welcome back</p>
-          <h1 class="profile-username" id="profileUsername">JohnDoe</h1>
+          <h1 class="profile-username" id="profileUsername"></h1>
           <div class="profile-stats">
             <div class="stat-pill">
               <span class="stat-num" id="statPlaylists">—</span>
@@ -42,6 +45,7 @@
         </div>
       </div>
     </div>
+
     <!-- ── ABOUT BAR ── -->
     <div class="profile-about-bar">
       <div class="about-label-block">
@@ -50,34 +54,47 @@
       </div>
       <textarea id="aboutInput" disabled placeholder="Tell people about yourself…"></textarea>
     </div>
+
+    <!-- ── LIBRARY ── -->
     <div class="library-section">
+
       <div class="section-heading">
         <div class="red-bar"></div>
         <h2>Library</h2>
       </div>
+
+      <!-- Playlists -->
       <div class="library-block">
         <div class="playlist-section-top">
           <p class="sub-heading">Playlists</p>
           <button id="createPlaylistBtn">+ New</button>
         </div>
         <div id="createPlaylistForm" style="display:none;">
-          <input id="newPlaylistName" type="text" placeholder="Playlist name..." maxlength="40" autocomplete="off" />
+          <input id="newPlaylistName" type="text" placeholder="Playlist name…" maxlength="40" autocomplete="off" />
           <button id="confirmCreateBtn">✔</button>
           <button id="cancelCreateBtn">✕</button>
         </div>
-        <div id="playlistCards">
-          <div class="demo-note">Your playlists will appear here</div>
-        </div>
+        <div id="playlistCards"></div>
       </div>
+
+      <!-- Liked Songs -->
       <div class="library-block">
         <p class="sub-heading">Liked Songs</p>
-        <div id="likedCards">
-          <div class="demo-note" style="min-width:300px">Your liked songs will appear here</div>
+        <div id="likedCards"></div>
+      </div>
+
+      <!-- Recognition History -->
+      <div class="library-block">
+        <div class="history-section-top">
+          <p class="sub-heading">Recognition History</p>
+          <button id="clearHistoryBtn">✕ Clear all</button>
         </div>
+        <div id="historyCards"></div>
       </div>
 
     </div>
   </div>
+
   <div id="musiceffect"></div>
   <!-- <script src="/js/musiceffect.js" defer></script> -->
   <script src="/js/main.js" defer></script>
