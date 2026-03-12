@@ -46,6 +46,38 @@ etc
  "nodemon": "^3.1.11"          to keep the server always active while making changes
 }
 -----------------------------------------------
+# HumiT — External API Reference
+## 1. Last.fm API
+
+**Used for:** Top songs by country (World page)
+Last.fm provides country-specific music charts via their free public API. HumiT uses two endpoints — `geo.getTopTracks` to fetch chart data for a specific country, and `chart.getTopTracks` as a global fallback when country data isn't available. Track details like album art, duration, and genre tags are enriched using `track.getInfo`.
+
+**Endpoints used:**
+- `geo.getTopTracks` — top tracks for a specific country
+- `chart.getTopTracks` — global top tracks (fallback)
+- `track.getInfo` — album art, duration, genre tags
+
+**Rate limits:** 5 requests/second on the free tier. HumiT enriches tracks in parallel using `Promise.all`, so keep `limit` at 10 or below to stay within limits.
+---
+## 2. Ticketmaster Discovery API
+
+**Used for:** Live concerts by country (World page)
+The Ticketmaster Discovery API returns upcoming events filtered by country code. HumiT fetches event name, venue, date, genre, ticket price range, and image.
+
+**Endpoint used:**
+- `GET /discovery/v2/events` — filtered by `countryCode`, sorted by date
+
+**Rate limits:** 5,000 requests/day on the free tier.
+---
+## 3. GeoJSON — Country Borders
+**Used for:** Globe rendering and country click detection (World page)
+
+Country border outlines are loaded at runtime from a public GeoJSON dataset hosted on GitHub. This enables polygon-based hit detection so clicking anywhere on a country's landmass resolves to the correct country code.
+
+**Source:** `https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson`
+
+**No API key required.** Loaded via a `fetch` call on page load.
+-----------------------------------------------
 start server using 
 -> npm run dev
 stop server using

@@ -30,6 +30,8 @@ app.use("/api/playlists", require("./routes/playlists"));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/recognize",require("./routes/recognize"));
 app.use("/api/history", require("./routes/history"));
+app.use("/api/concerts", require("./routes/concerts"));
+app.use("/api/topsongs", require("./routes/topsongs"));
 //navigation
 const path = require("path");
 app.get("/", (req, res) => {
@@ -46,6 +48,9 @@ app.get("/profile", (req, res) => {
 });
 app.get("/trending", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "trending.html"));
+});
+app.get("/world", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "globe.html"));
 });
 app.get("/error", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "error.html"));

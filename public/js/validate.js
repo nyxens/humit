@@ -20,9 +20,20 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Username is required.");
       return;
     }
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters.");
-      return;
+    if (password.length < 8) {
+      alert("Password must be at least 8 characters."); return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      alert("Password must contain at least one uppercase letter."); return;
+    }
+    if (!/[a-z]/.test(password)) {
+      alert("Password must contain at least one lowercase letter."); return;
+    }
+    if (!/\d/.test(password)) {
+      alert("Password must contain at least one number."); return;
+    }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+      alert("Password must contain at least one special character."); return;
     }
     console.log("passed!");
     form.submit();    

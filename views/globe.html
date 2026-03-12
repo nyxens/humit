@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Yuji+Boku&display=swap" rel="stylesheet">
+  <title>HumIt — World</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/globe.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="/js/musiceffect.js" defer></script>
+  <script src="/js/main.js" defer></script>
+</head>
+<body>
+  <nav>
+    <h1 id="brand">HumiT</h1>
+    <ul>
+      <li><img class="modetoggle" id="modetoggle" src="/images/light.png"></li>
+      <li><a href="/">Home</a></li>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="/trending">Trending</a></li>
+      <li><a href="/world">World</a></li>
+      <li id="auth-link"></li>
+    </ul>
+  </nav>
+
+  <!-- page header -->
+  <div class="globe-header">
+    <p class="globe-eyebrow">Live Music World</p>
+    <h1 class="globe-title">Explore <span>Music</span> Around the Globe</h1>
+    <p class="globe-sub">Click any country to discover the top songs</p>
+  </div>
+  <!-- filter tabs -->
+  <div class="globe-filters">
+    <button class="filter-btn active" data-filter="concerts">Concerts</button>
+    <button class="filter-btn" data-filter="topsongs">Top Songs</button>
+  </div>
+
+  <!-- globe stage — full width centered -->
+  <div class="globe-stage">
+    <div class="globe-wrap">
+      <canvas id="globeCanvas"></canvas>
+    </div>
+    <div class="globe-hint">drag to rotate · click any country for top songs</div>
+  </div>
+
+  <!-- results panel — hidden until a country is clicked -->
+  <div class="results-panel" id="resultsPanel">
+    <div class="results-header" id="resultsHeader">
+      <div class="results-country-info">
+        <span class="results-flag" id="resultsFlag"></span>
+        <div>
+          <div class="results-country" id="resultsCountry"></div>
+        </div>
+      </div>
+      <button class="results-close" id="panelClose">✕ Close</button>
+    </div>
+    <!-- concerts -->
+    <div id="sectionEvent" style="display:none">
+      <div class="panel-section-title" id="eventTypeLabel"></div>
+      <div class="concert-grid" id="eventCard"></div>
+    </div>
+
+    <!-- top songs -->
+    <div id="sectionSongs" style="display:none">
+      <div class="panel-section-title">♪ Top Songs</div>
+      <div class="songs-grid" id="songsList"></div>
+    </div>
+  </div>
+  <script src="/js/globe.js"></script>
+</body>
+</html>
