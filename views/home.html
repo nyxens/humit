@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Yuji+Boku&display=swap" rel="stylesheet">
-  <title>HumIt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Yuji+Boku&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>HumiT</title>
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="/css/home.css" />
   <script src="/js/listen.js" defer></script>
@@ -25,27 +25,65 @@
       <li id="auth-link"></li>
     </ul>
   </nav>
+
   <div class="profile-hero">
-    <div class="wrapper">
-      <div class="mic">
+
+    <!-- tagline pinned to top of hero -->
+    <p class="listen-label">What's that <span>song?</span></p>
+
+    <!-- floating CSS notes — left and right edges only -->
+    <div class="music-notes" aria-hidden="true">
+      <span class="note">♪</span>
+      <span class="note">♫</span>
+      <span class="note">♩</span>
+      <span class="note">♬</span>
+      <span class="note">♪</span>
+      <span class="note">♫</span>
+      <span class="note">♩</span>
+      <span class="note">♬</span>
+      <span class="note">♪</span>
+      <span class="note">♫</span>
+    </div>
+
+    <!-- orbit rings contain the mic so they share the same centre -->
+    <div class="orbit-rings" aria-hidden="true">
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+
+      <!-- mic is INSIDE orbit-rings so it's always centred -->
+      <div class="mic" aria-hidden="false">
         <img id="micBtn" src="/images/mic.svg" alt="Record" />
-        <span id="micPulse"></span>
       </div>
+    </div>
+
+    <!-- status + waveform + result sit below -->
+    <div class="wrapper">
       <p id="recStatus">Tap to listen</p>
       <div class="wave-wrap">
         <canvas id="waveCanvas"></canvas>
       </div>
-      <!-- result card -->
-      <div id="matchResult">
-        <span class="match-icon">♪</span>
-        <div class="match-text">
-          <div id="matchTitle" class="match-title"></div>
-          <div id="matchArtist" class="match-artist"></div>
-          <div id="matchNone" class="match-none" style="display:none">No match found</div>
-        </div>
-      </div>
+    </div>
+
+    <p class="home-hint">Powered by HumiT · Audio Fingerprinting</p>
+  </div>
+
+  <!-- result modal — outside hero, fixed overlay -->
+  <div id="matchOverlay">
+    <div id="matchResult">
+      <button class="match-close" id="matchClose">✕</button>
+      <div class="match-art" id="matchArt">♪</div>
+      <div class="match-badge found" id="matchBadge">Match Found</div>
+      <div id="matchTitle" class="match-title"></div>
+      <div id="matchArtist" class="match-artist"></div>
+      <div class="match-divider" id="matchDivider"></div>
+      <div class="match-info" id="matchInfo"></div>
+      <div id="matchNone" class="match-none" style="display:none">Nothing recognized — try again</div>
+      <button class="match-retry" id="matchRetry">Listen Again</button>
     </div>
   </div>
+
   <div id="musiceffect"></div>
 </body>
 </html>

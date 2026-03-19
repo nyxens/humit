@@ -5,15 +5,28 @@ let sessionStartedAt = null;
 
 let audioCtx, analyser, source, dataArray, animationId;
 
-const pulseDot  = document.getElementById("micPulse");
 const micBtn    = document.getElementById("micBtn");
 const micWrap   = document.querySelector(".mic");
 const statusText = document.getElementById("recStatus");
 const canvas    = document.getElementById("waveCanvas");
-const matchResult = document.getElementById("matchResult");
-const matchTitle  = document.getElementById("matchTitle");
-const matchArtist = document.getElementById("matchArtist");
-const matchNone   = document.getElementById("matchNone");
+const matchOverlay = document.getElementById("matchOverlay");
+const matchResult  = document.getElementById("matchResult");
+const matchTitle   = document.getElementById("matchTitle");
+const matchArtist  = document.getElementById("matchArtist");
+const matchNone    = document.getElementById("matchNone");
+const matchBadge   = document.getElementById("matchBadge");
+const matchInfo    = document.getElementById("matchInfo");
+const matchDivider = document.getElementById("matchDivider");
+const matchClose   = document.getElementById("matchClose");
+const matchRetry   = document.getElementById("matchRetry");
+
+// close modal
+function closeModal() {
+  if (matchOverlay) matchOverlay.classList.remove("visible");
+}
+if (matchClose)  matchClose.addEventListener("click", closeModal);
+if (matchRetry)  matchRetry.addEventListener("click", () => { closeModal(); });
+if (matchOverlay) matchOverlay.addEventListener("click", e => { if (e.target === matchOverlay) closeModal(); });
 
 canvas.width  = canvas.offsetWidth || 500;
 canvas.height = 80;
@@ -105,12 +118,11 @@ async function startRecording() {
     sessionStartedAt = new Date().toISOString();
     micBtn.src = "images/recording.svg";
     micWrap.classList.add("recording");
-    pulseDot.classList.add("active");
     statusText.textContent = "Listening…";
     statusText.classList.add("listening");
 
     // hide previous result
-    if (matchResult) matchResult.classList.remove("visible");
+    if (matchOverlay) matchOverlay.classList.remove("visible");
 
     mediaRecorder.start();
     drawFrequencyBars();
@@ -130,7 +142,6 @@ function stopRecording() {
     cancelAnimationFrame(animationId);
     clearCanvas();
     drawBaseline();
-    pulseDot.classList.remove("active");
     micWrap.classList.remove("recording");
     micBtn.src = "images/mic.svg";
     statusText.textContent = "Identifying…";
@@ -194,22 +205,45 @@ async function recognize(blob, startedAt) {
     if (!result.match) {
       statusText.textContent = "Nothing found";
       statusText.classList.remove("listening");
-      if (matchResult) {
-        matchTitle && (matchTitle.style.display = "none");
-        matchArtist && (matchArtist.style.display = "none");
-        matchNone && (matchNone.style.display = "block");
-        matchResult.classList.add("visible");
+      if (matchOverlay) {
+        matchBadge.textContent = "No Match";
+        matchBadge.className = "match-badge none";
+        matchTitle.style.display = "none";
+        matchArtist.style.display = "none";
+        matchDivider.style.display = "none";
+        matchInfo.style.display = "none";
+        matchNone.style.display = "block";
+        matchOverlay.classList.add("visible");
       }
     } else {
       statusText.textContent = "Match found";
       statusText.classList.add("listening");
-      if (matchResult) {
-        matchNone && (matchNone.style.display = "none");
-        matchTitle && (matchTitle.style.display = "block");
-        matchArtist && (matchArtist.style.display = "block");
-        if (matchTitle)  matchTitle.textContent  = result.match.title;
-        if (matchArtist) matchArtist.textContent = result.match.artist;
-        matchResult.classList.add("visible");
+      if (matchOverlay) {
+        const m = result.match;
+        matchBadge.textContent = "Match Found";
+        matchBadge.className = "match-badge found";
+        matchNone.style.display = "none";
+        matchTitle.style.display = "block";
+        matchArtist.style.display = "block";
+        matchDivider.style.display = "block";
+        matchInfo.style.display = "flex";
+        matchTitle.textContent  = m.title  || "Unknown Title";
+        matchArtist.textContent = m.artist || "Unknown Artist";
+        matchInfo.innerHTML = "";
+        const rows = [
+          ["Album",      m.album      || null],
+          ["Genre",      m.genre      || null],
+          ["Released",   m.releaseDate ? m.releaseDate.slice(0,4) : null],
+          ["Confidence", m.confidence ? Math.round(m.confidence * 100) + "%" : null],
+        ];
+        rows.forEach(([label, val]) => {
+          if (!val) return;
+          const row = document.createElement("div");
+          row.className = "match-info-row";
+          row.innerHTML = `<span class="match-info-label">${label}</span><span class="match-info-value">${val}</span>`;
+          matchInfo.appendChild(row);
+        });
+        matchOverlay.classList.add("visible");
       }
     }
   } catch (err) {
