@@ -23,7 +23,54 @@ const base = canvas.height / 2;
 // draw flat baseline on load
 drawBaseline();
 
+// ── auth check ──
+let userLoggedIn = false;
+fetch("/auth/status")
+  .then(r => r.json())
+  .then(d => { userLoggedIn = d.loggedIn; });
+
+function showAuthToast() {
+  let toast = document.getElementById("authToast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "authToast";
+    toast.textContent = "Please log in to use this feature";
+    toast.style.cssText = `
+      position:fixed; bottom:32px; left:50%;
+      transform:translateX(-50%) translateY(20px);
+      background:#1a1a1c; border:1px solid rgba(193,2,6,0.5);
+      color:#fff; font-size:13px; font-weight:500;
+      padding:10px 22px; border-radius:999px;
+      opacity:0; pointer-events:none;
+      transition:opacity 0.25s, transform 0.25s;
+      z-index:9999; font-family:Inter,sans-serif;
+    `;
+    document.body.appendChild(toast);
+  }
+  toast.style.opacity = "1";
+  toast.style.transform = "translateX(-50%) translateY(0)";
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateX(-50%) translateY(20px)";
+  }, 2500);
+}
+
 micBtn.addEventListener("click", () => {
+  if (!userLoggedIn) {
+    showAuthToast();
+    // still shake so the button feels responsive
+    micWrap.classList.remove("shake");
+    void micWrap.offsetWidth;
+    micWrap.classList.add("shake");
+    micWrap.addEventListener("animationend", () => micWrap.classList.remove("shake"), { once: true });
+    return;
+  }
+  // shake on every tap
+  micWrap.classList.remove("shake");
+  void micWrap.offsetWidth; // force reflow to restart animation
+  micWrap.classList.add("shake");
+  micWrap.addEventListener("animationend", () => micWrap.classList.remove("shake"), { once: true });
+
   if (!isRecording) startRecording();
   else stopRecording();
 });

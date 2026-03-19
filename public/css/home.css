@@ -1,6 +1,5 @@
 html {
-  overflow-y:hidden;
-  scrollbar-width: none; 
+  overflow-y: auto;
 }
 
 /* ═══════════════════════════════════════
@@ -44,7 +43,8 @@ html {
    HEADING
 ═══════════════════════════════════════ */
 .listen-label {
-  font-family: "Yuji Boku", serif;
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
   font-size: 11px;
   letter-spacing: 6px;
   text-transform: uppercase;
@@ -64,8 +64,8 @@ html {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: var(--dark);
-  border: 2px solid var(--red2);
+  background: var(--dark2);
+  border: 1.5px solid rgba(193,2,6,0.3);
   cursor: pointer;
   transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
 }
@@ -94,6 +94,28 @@ html {
   border-color: var(--red1);
   box-shadow: 0 0 40px rgba(193,2,6,0.3), 0 0 80px rgba(193,2,6,0.1);
   background: rgba(193,2,6,0.08);
+  animation: micVibrate 0.25s ease-in-out infinite;
+}
+
+/* click shake — applied via JS for one shot */
+.mic.shake {
+  animation: micShake 0.45s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes micShake {
+  0%,100% { transform: translateX(0) rotate(0deg); }
+  15%      { transform: translateX(-6px) rotate(-4deg); }
+  30%      { transform: translateX(6px)  rotate(4deg); }
+  45%      { transform: translateX(-4px) rotate(-2deg); }
+  60%      { transform: translateX(4px)  rotate(2deg); }
+  75%      { transform: translateX(-2px) rotate(-1deg); }
+  90%      { transform: translateX(2px)  rotate(1deg); }
+}
+
+@keyframes micVibrate {
+  0%,100% { transform: translateX(0); }
+  25%     { transform: translateX(-0.5px); }
+  75%     { transform: translateX(0.5px); }
 }
 
 /* ── pulse rings (3 layered) ── */
@@ -121,14 +143,7 @@ html {
 
 @keyframes ripple {
   0%   { transform: scale(1);   opacity: 1; }
-  100% { transform: scale(2); opacity: 0; }
-}
-@keyframes shake {
-  0%,100% { transform: translateX(0); }
-  20%      { transform: translateX(-6px); }
-  40%      { transform: translateX(6px); }
-  60%      { transform: translateX(-4px); }
-  80%      { transform: translateX(4px); }
+  100% { transform: scale(2.4); opacity: 0; }
 }
 
 /* ═══════════════════════════════════════
@@ -185,7 +200,6 @@ html {
   width: 100%;
   height: 80px;
   border-radius: 8px;
-  margin-top: 15px;
 }
 
 /* ═══════════════════════════════════════
