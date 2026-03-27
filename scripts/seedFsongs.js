@@ -21,6 +21,11 @@ async function seed() {
         title: "Living Life, In The Night",
         artist: "Cheriimoya",
         filePath: "./songs/LivingLife,InTheNight.mp3"
+      },
+      {
+        title: "For A Reason",
+        artist: "Karan Aujla",
+        filePath: "./songs/ForAReason.mp3"
       }
     ]);
     console.log("Fsongs seeded successfully");

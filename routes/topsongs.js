@@ -1,11 +1,11 @@
 const express = require("express");
 const router  = express.Router();
 
-// Last.fm API key — add LASTFM_KEY to your .env
+// Last.fm API key
 const LASTFM_KEY  = process.env.LASTFM_KEY;
 const LASTFM_BASE = "https://ws.audioscrobbler.com/2.0/";
 
-// ISO2 → Last.fm country name (Last.fm uses full English country names)
+//(Last.fm uses full English country names)
 const ISO2_TO_LASTFM = {
   AF:"Afghanistan", AL:"Albania", DZ:"Algeria", AO:"Angola", AR:"Argentina",
   AM:"Armenia", AU:"Australia", AT:"Austria", AZ:"Azerbaijan", BH:"Bahrain",
@@ -47,7 +47,7 @@ router.get("/", async (req, res) => {
     let isFallback  = false;
     let usedCountry = countryName;
 
-    // ── Step 1: geo.getTopTracks for this specific country ──
+    //geo.getTopTracks for this specific country ──
     if (countryName) {
       const url = `${LASTFM_BASE}?method=geo.gettoptracks&country=${encodeURIComponent(countryName)}&limit=${limit}&api_key=${LASTFM_KEY}&format=json`;
       const r = await fetch(url);
@@ -57,7 +57,7 @@ router.get("/", async (req, res) => {
       }
     }
 
-    // ── Step 2: global fallback ──
+    //global fallback ──
     if (!tracks.length) {
       isFallback  = true;
       usedCountry = "Global";
@@ -71,7 +71,7 @@ router.get("/", async (req, res) => {
 
     if (!tracks.length) return res.json({ songs: [], country: iso2, fallback: false });
 
-    // ── Step 3: enrich with track.getInfo (artwork, tags, duration) ──
+    //enrich with track.getInfo (artwork, tags, duration) ──
     const enriched = await Promise.all(tracks.map(async (track, i) => {
       const name   = track.name || "";
       const artist = typeof track.artist === "string" ? track.artist : (track.artist?.name || "");
@@ -96,7 +96,7 @@ router.get("/", async (req, res) => {
             genre = t.toptags?.tag?.[0]?.name || null;
           }
         }
-      } catch { /* skip enrichment, use base */ }
+      } catch { }
 
       // fallback art from the track object itself (geo.gettoptracks includes images)
       if (!artHD) {
