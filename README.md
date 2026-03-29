@@ -84,8 +84,11 @@ stop server using
 -> Ctrl+C
 -----------------------------------------------
 test account details
--> email:test@gmail.com
--> pass: 123456
+-> email:test@test.com
+-> pass: 123456789!aD
+or
+-> email:test1@test.com(for api testing)
+-> pass: 123456789!aD
 sync / update trending songs using 
 -> node scripts/syncTrendingSongs.js
 -----------------------------------------------
