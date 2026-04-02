@@ -546,7 +546,7 @@ async function showConcerts(code, country) {
 }
 
 // ═══════════════════════════════════════════════════
-// TOP SONGS — iTunes RSS
+// TOP SONGS 
 // ═══════════════════════════════════════════════════
 // ── active audio preview player ──
 let currentAudio   = null;
